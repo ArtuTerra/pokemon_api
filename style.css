@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #070a52;
+}
+
+body,
+input,
+textarea,
+select,
+button {
+  color: #d21312;
+  font: 400 1rem "Roboto", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.searchBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBox input {
+  border-radius: 8px 0 0 8px;
+  border: 0;
+  outline: none;
+  height: 36px;
+  padding: 4px 16px;
+  background-color: #f15a59;
+  color: #070a52;
+}
+
+.searchBox input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ed2b2a;
+  opacity: 1; /* Firefox */
+}
+
+.searchBox input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #ed2b2a;
+}
+
+.searchBox input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #ed2b2a;
+}
+
+.searchBox button {
+  border-radius: 0 8px 8px 0;
+  border: 0;
+  height: 36px;
+  padding: 4px 16px;
+  background-color: #ed2b2a;
+}
+
+.pokemonBox {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokemonBox img {
+  width: 400px;
+}
+
+.pokemonBox p {
+  margin-top: 1rem;
+}
+
+.pokemonBox .pokemonInfos {
+  padding: 2rem;
+}
