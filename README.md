@@ -8,3 +8,4 @@ To do: </br>
 -Melhorar visual do site </br>
 -Adicionar mais informações sobre os pokemons </br>
 -Terminar Readme </br>
+-Mensagem de Erro quando Pokemon não existe </br>
