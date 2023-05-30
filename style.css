@@ -70,21 +70,21 @@ main {
   background-color: #ed2b2a;
 }
 
-.pokemonBox {
+.pokemonContainer {
   display: flex;
   margin-top: 2rem;
   justify-content: center;
   align-items: center;
 }
 
-.pokemonBox img {
+.pokemonContainer img {
   width: 400px;
 }
 
-.pokemonBox p {
+.pokemonContainer p {
   margin-top: 1rem;
 }
 
-.pokemonBox .pokemonInfos {
+.pokemonContainer .pokemonInfos {
   padding: 2rem;
 }

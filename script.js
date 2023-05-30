@@ -6,30 +6,107 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-function getPokemon(e) {
+async function getPokemon() {
   const name = convertToSearch(document.querySelector("#pokemonName").value);
-  fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-    .then((response) => response.json())
-    .then((data) => {
-      document.querySelector(".pokemonBox").innerHTML = `
-      <div>
-      <img 
-          src="${data.sprites.other["official-artwork"].front_default}" 
-          alt="${data.name}"
-        />
-      </div>
-      <div class="pokemonInfo">
-        <h1>${toTitleCase(data.name)} </h1>
-        <p>Weight: ${data.weight}</p>
-        <p>Pokemon ID: ${data.id}</p>
-      </div>
-      `;
-    })
-    .catch((err) => {
-      console.log("Pokemon not found", err);
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const data = await response.json();
+
+    // ADDING ELEMENTS TO HTML
+    const pokemonContainer = document.createElement("div");
+    pokemonContainer.className = "pokemonContainer";
+
+    const imgElement = document.createElement("img");
+    imgElement.src = data.sprites.other["official-artwork"].front_default;
+    imgElement.alt = data.name;
+
+    const infoContainer = document.createElement("div");
+    infoContainer.className = "pokemonInfo";
+
+    const nameElement = document.createElement("h1");
+    nameElement.textContent = toTitleCase(data.name);
+
+    const weightElement = document.createElement("p");
+    weightElement.textContent = `Weight: ${data.weight}`;
+
+    const idElement = document.createElement("p");
+    idElement.textContent = `Pokemon ID: ${data.id}`;
+
+    const descElement = document.createElement("p");
+
+    // CREATE SELECT
+
+    const selectContainer = document.createElement("div");
+    selectContainer.id = "select-container";
+    const select = document.createElement("select");
+    select.id = "my-select";
+    const speciesData = await getPokemonSpecies(name);
+    console.log(speciesData);
+
+    for (let i = 0; i < speciesData.length; i++) {
+      const option = document.createElement("option");
+      option.value = speciesData[i].version_name;
+      option.text = speciesData[i].version_name;
+      select.appendChild(option);
+    }
+
+    selectContainer.appendChild(select);
+
+    // Append elements to container
+    infoContainer.appendChild(nameElement);
+    infoContainer.appendChild(weightElement);
+    infoContainer.appendChild(idElement);
+    infoContainer.appendChild(selectContainer);
+
+    // Add event listener to the select element
+    select.addEventListener("change", function () {
+      const selectedOption = select.options[select.selectedIndex].text;
+      const selectedDesc = speciesData.find(
+        (item) => item.version_name === selectedOption
+      );
+
+      if (selectedDesc) {
+        descElement.textContent = `Description: ${selectedDesc.flavorText}`;
+      } else {
+        console.log("No description found for selected version");
+      }
+
+      infoContainer.appendChild(descElement);
     });
 
-  // e.preventDefault();
+    pokemonContainer.appendChild(imgElement);
+    pokemonContainer.appendChild(infoContainer);
+
+    // Replace existing content with new Pokemon container
+    const resultsContainer = document.querySelector(".resultsContainer");
+    resultsContainer.innerHTML = "";
+    resultsContainer.appendChild(pokemonContainer);
+  } catch (err) {
+    console.log("Pokemon not found", err);
+  }
+}
+
+async function getPokemonSpecies(name) {
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${name}`
+    );
+    const data = await response.json();
+    const flavorTextAll = data.flavor_text_entries;
+    const flavorTextEn = [];
+    for (let i = 0; i < flavorTextAll.length; i++) {
+      if (flavorTextAll[i].language.name === "en") {
+        flavorTextEn.push({
+          version_name: flavorTextAll[i].version.name,
+          flavorText: convertToRead(flavorTextAll[i].flavor_text),
+        });
+      }
+    }
+    return flavorTextEn;
+  } catch (err) {
+    console.log("Error fetching Pokemon species data", err);
+    throw err;
+  }
 }
 
 function toTitleCase(str) {
@@ -52,4 +129,18 @@ function convertToSearch(str) {
     return word.toLowerCase();
   });
   return strArr.join("-");
+}
+
+// This code was adapted from the 'toTitleCase';
+// It transforms the "\n" and "\f" to " " using REGEX. Also capitalizes the first letter in the sentence.
+function convertToRead(str) {
+  console.log("Converting this flavor text:", str);
+
+  const cleaned = str
+    .replace(/[\n|\f]/g, " ")
+    .replace("POKéMON", "Pokémon")
+    .replace(/\s/g, " ");
+
+  console.log("This flavor text was converted:", str);
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
 }
