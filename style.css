@@ -25,7 +25,7 @@ a {
 }
 
 main {
-  width: 80%;
+  /* width: 80%; */
   margin: 0 auto;
   margin-top: 2rem;
 }
@@ -71,14 +71,17 @@ main {
 }
 
 .pokemonContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(150px, 400px) minmax(150px, 400px);
   margin-top: 2rem;
   justify-content: center;
   align-items: center;
 }
 
 .pokemonContainer img {
-  width: 400px;
+  object-fit: fill;
+  object-position: bottom right;
+  max-width: 400px;
 }
 
 .pokemonContainer p {
@@ -87,4 +90,12 @@ main {
 
 .pokemonContainer .pokemonInfos {
   padding: 2rem;
+}
+
+.pokemonDescription {
+  max-width: 100%;
+}
+
+#select-container {
+  margin-top: 20px;
 }

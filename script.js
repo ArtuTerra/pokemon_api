@@ -33,6 +33,7 @@ async function getPokemon() {
     idElement.textContent = `Pokemon ID: ${data.id}`;
 
     const descElement = document.createElement("p");
+    descElement.className = "pokemonDescription";
 
     // CREATE SELECT
 
@@ -40,8 +41,12 @@ async function getPokemon() {
     selectContainer.id = "select-container";
     const select = document.createElement("select");
     select.id = "my-select";
+    const firstOption = document.createElement("option");
+    firstOption.value = "none";
+    firstOption.text = "Select version";
+    select.appendChild(firstOption);
     const speciesData = await getPokemonSpecies(name);
-    console.log(speciesData);
+    // console.log(speciesData);
 
     for (let i = 0; i < speciesData.length; i++) {
       const option = document.createElement("option");
@@ -61,16 +66,19 @@ async function getPokemon() {
     // Add event listener to the select element
     select.addEventListener("change", function () {
       const selectedOption = select.options[select.selectedIndex].text;
-      const selectedDesc = speciesData.find(
-        (item) => item.version_name === selectedOption
-      );
-
-      if (selectedDesc) {
-        descElement.textContent = `Description: ${selectedDesc.flavorText}`;
+      if (selectedOption === "Select version") {
+        descElement.textContent = ` `;
       } else {
-        console.log("No description found for selected version");
-      }
+        const selectedDesc = speciesData.find(
+          (item) => item.version_name === selectedOption
+        );
 
+        if (selectedDesc) {
+          descElement.textContent = `Description: ${selectedDesc.flavorText}`;
+        } else {
+          console.log("No description found for selected version");
+        }
+      }
       infoContainer.appendChild(descElement);
     });
 
@@ -134,13 +142,13 @@ function convertToSearch(str) {
 // This code was adapted from the 'toTitleCase';
 // It transforms the "\n" and "\f" to " " using REGEX. Also capitalizes the first letter in the sentence.
 function convertToRead(str) {
-  console.log("Converting this flavor text:", str);
+  // console.log("Converting this flavor text:", str);
 
   const cleaned = str
     .replace(/[\n|\f]/g, " ")
     .replace("POKéMON", "Pokémon")
     .replace(/\s/g, " ");
 
-  console.log("This flavor text was converted:", str);
+  // console.log("This flavor text was converted:", str);
   return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
 }
