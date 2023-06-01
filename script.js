@@ -90,7 +90,7 @@ async function getPokemon() {
     resultsContainer.innerHTML = "";
     resultsContainer.appendChild(pokemonContainer);
   } catch (err) {
-    console.log("Pokemon not found", err);
+    window.alert("Pokemon not found!", err);
   }
 }
 

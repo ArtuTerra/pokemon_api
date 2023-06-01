@@ -12,8 +12,10 @@ To do: </br>
 -Melhorar visual do site </br>
 ~~-Adicionar mais informações sobre os pokemons~~ </br>
 
-__FEITO!__</br>
+**FEITO!**</br>
+
 ### Descrições de pokedex adicionados! </br> Selecione qualquer jogo que o pokemon procurado está presente e a sua descrição daquele jogo irá aparecer!
+
 </br>
 -Terminar Readme </br>
--Mensagem de Erro quando Pokemon não existe </br>
+~~-Mensagem de Erro quando Pokemon não existe~~ </br>
