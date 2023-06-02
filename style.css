@@ -79,9 +79,9 @@ main {
 }
 
 .pokemonContainer img {
-  object-fit: fill;
+  object-fit: cover;
   object-position: bottom right;
-  max-width: 400px;
+  max-width: 100%;
 }
 
 .pokemonContainer p {
@@ -98,4 +98,16 @@ main {
 
 #select-container {
   margin-top: 20px;
+}
+
+.resultsContainer {
+  display: grid;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+#loadingGif {
+  max-width: 100px;
+  max-height: 100px;
 }

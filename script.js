@@ -7,6 +7,7 @@ document.addEventListener("keydown", function (event) {
 });
 
 async function getPokemon() {
+  loadingBox();
   const name = convertToSearch(document.querySelector("#pokemonName").value);
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
@@ -90,6 +91,8 @@ async function getPokemon() {
     resultsContainer.innerHTML = "";
     resultsContainer.appendChild(pokemonContainer);
   } catch (err) {
+    const resultsContainer = document.querySelector(".resultsContainer");
+    resultsContainer.innerHTML = "";
     window.alert("Pokemon not found!", err);
   }
 }
@@ -151,4 +154,12 @@ function convertToRead(str) {
 
   // console.log("This flavor text was converted:", str);
   return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
+
+function loadingBox() {
+  var string = `<img src="img/loading.gif" id="loadingGif">`;
+
+  // Replace existing content with new Pokemon container
+  const resultsContainer = document.querySelector(".resultsContainer");
+  resultsContainer.innerHTML = string;
 }
