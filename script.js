@@ -149,7 +149,7 @@ function convertToRead(str) {
 
   const cleaned = str
     .replace(/[\n|\f]/g, " ")
-    .replace("POKéMON", "Pokémon")
+    .replace(/POKéMON/g, "Pokémon")
     .replace(/\s/g, " ");
 
   // console.log("This flavor text was converted:", str);
