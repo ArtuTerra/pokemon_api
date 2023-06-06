@@ -10,7 +10,16 @@ async function getPokemon() {
   loadingBox();
   const name = convertToSearch(document.querySelector("#pokemonName").value);
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    // fetching pokemon ID through pokemon species bc the names there usually are correct, and then taking its ID to fetch from the regular pokemon website
+    const speciesResponse = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${name}`
+    );
+    const speciesId = await speciesResponse.json();
+    const pokemonId = speciesId.id; // Correct pokemon id
+
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+    );
     const data = await response.json();
 
     // ADDING ELEMENTS TO HTML
