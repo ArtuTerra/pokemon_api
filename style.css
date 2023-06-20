@@ -25,7 +25,6 @@ a {
 }
 
 main {
-  /* width: 80%; */
   margin: 0 auto;
   margin-top: 2rem;
 }
@@ -43,23 +42,23 @@ main {
   height: 36px;
   padding: 4px 16px;
   background-color: #f15a59;
-  color: #070a52;
+  color: #000000;
 }
 
 .searchBox input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #ed2b2a;
+  color: #070a52;
   opacity: 1; /* Firefox */
 }
 
 .searchBox input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #ed2b2a;
+  color: #070a52;
 }
 
 .searchBox input::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #ed2b2a;
+  color: #070a52;
 }
 
 .searchBox button {
